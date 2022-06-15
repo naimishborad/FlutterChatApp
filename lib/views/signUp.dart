@@ -10,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../Services/Auth.dart';
 import '../Services/Constants.dart';
 
 
@@ -74,8 +75,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Google_Signin_button(
                   
                   callback: (){
-                    AuthProvider authProvider = context.read<AuthProvider>();
-                   authProvider.handleSignIn().then((value) {
+                    Auth authProvider = context.read<Auth>();
+                   authProvider.signInWithGoogle().then((value) {
                       final user = FirebaseAuth.instance.currentUser;
                         Map<String,String> users ={
                       'name': user!.displayName.toString(),

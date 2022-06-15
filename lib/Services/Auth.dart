@@ -1,4 +1,5 @@
 
+import 'package:chat/allConstants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,13 +7,15 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Auth extends ChangeNotifier {
- 
+
   final auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
   static var userId;
 
+  final SharedPreferences prefs;
 
+  Auth(this.prefs);
 
 
   Future createUser(String email,String password)async{

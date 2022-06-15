@@ -69,10 +69,8 @@ class _MyAppState extends State<MyApp> {
           prefs: widget.prefs,
           firebaseFirestore: widget.firebaseFirestore
         )),
-        ChangeNotifierProvider<Auth>(create: (context)=>Auth()),
-        // ChangeNotifierProvider<SettingProvider>(
-        //   create: (_)=>SettingProvider(prefs: widget.prefs, firebaseFirestore: widget.firebaseFirestore, firebaseStorage: widget.firebaseStorage)
-        //   )
+        ChangeNotifierProvider<Auth>(create: (context)=>Auth(widget.prefs)),
+       
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

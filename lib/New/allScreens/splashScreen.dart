@@ -1,6 +1,8 @@
 
 import 'package:chat/New/AuthProvider.dart';
+import 'package:chat/Services/Auth.dart';
 import 'package:chat/views/ChatRoom.dart';
+import 'package:chat/views/Checking.dart';
 import 'package:chat/views/signUp.dart';
 import 'package:flutter/material.dart';
 
@@ -20,19 +22,11 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     Future.delayed(Duration(seconds: 5),(){
-      checkSignedIn();
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Checking()));
     });
   }
   @override
-  void checkSignedIn()async{
-    AuthProvider authProvider = context.read<AuthProvider>();
-    bool isLoggedIn = await authProvider.isLoggedIn();
-    if(isLoggedIn){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ChatRoomSceen()));
-     
-    }
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
-  }
+ 
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
