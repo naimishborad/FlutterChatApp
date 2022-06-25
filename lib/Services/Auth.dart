@@ -1,5 +1,4 @@
 
-import 'package:chat/allConstants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +60,7 @@ class Auth extends ChangeNotifier {
     }
   }
 
-  void signOut() async {
+  Future signOut() async {
     await googleSignIn.signOut();
     await FirebaseAuth.instance.signOut();
   }

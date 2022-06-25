@@ -1,19 +1,20 @@
 
-import 'package:chat/New/allScreens/splashScreen.dart';
+import 'package:chat/views/Intro.dart';
+import 'package:chat/views/splashScreen.dart';
 import 'package:chat/Services/Auth.dart';
 import 'package:chat/Services/helperFunctions.dart';
 import 'package:chat/views/ChatRoom.dart';
-import 'package:chat/views/Signin.dart';
+
 import 'package:chat/views/signUp.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-import 'package:chat/New/AuthProvider.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 
 bool isWhite = true;
@@ -22,18 +23,20 @@ void main() async
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
+ final showHome = prefs.getBool('showHome') ?? false;
 
-
-  runApp(MyApp(prefs: prefs));
+  runApp(MyApp(prefs: prefs,showHome: showHome,));
 }
 
 
 class MyApp extends StatefulWidget {
+  
+    final bool showHome;
     final SharedPreferences prefs;
     final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
 
-  MyApp({super.key, required this.prefs});
+  MyApp({super.key, required this.prefs, required this.showHome});
   
 
   @override
@@ -62,13 +65,9 @@ class _MyAppState extends State<MyApp> {
     
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<AuthProvider>(
-          create: (_)=>AuthProvider(
-          googleSignIn : GoogleSignIn(),
-          firebaseAuth: FirebaseAuth.instance,
-          prefs: widget.prefs,
-          firebaseFirestore: widget.firebaseFirestore
-        )),
+        ChangeNotifierProvider<Auth>(
+          create: (_)=>Auth(widget.prefs)
+          ),
         ChangeNotifierProvider<Auth>(create: (context)=>Auth(widget.prefs)),
        
       ],
@@ -78,7 +77,7 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeData(
             primarySwatch: Colors.purple,
           ),
-          home: SplashScreen(),
+          home: widget.showHome ?  SplashScreen() : Intro()
       ),
     );
   }

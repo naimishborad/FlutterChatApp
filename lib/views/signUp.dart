@@ -1,6 +1,4 @@
 
-import 'dart:math';
-import 'package:chat/New/AuthProvider.dart';
 import 'package:chat/Services/helperFunctions.dart';
 import 'package:chat/Themes/Themes.dart';
 import 'package:chat/Utils/Google_signIn_button.dart';
@@ -24,13 +22,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final key = GlobalKey<FormState>();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _PassController = TextEditingController();
   
-
- 
-
     getuserInfo()async{
       Constants.myName = (await HelperFunctions.getUserNameSharedPreference())!;
      setState((){
@@ -40,13 +32,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void initState() {
     getuserInfo();
-    // TODO: implement initState
     super.initState();
   }
    @override
     void dispose(){
-      _emailController.dispose();
-      _PassController.dispose();
+    
       super.dispose();
     }
  
@@ -71,9 +61,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/5208996.jpg'),
-                Google_Signin_button(
-                  
+                Image.asset('assets/Intropage3.jpg'),
+                SizedBox(height: 50,),
+                Google_Signin_button(  
                   callback: (){
                     Auth authProvider = context.read<Auth>();
                    authProvider.signInWithGoogle().then((value) {
@@ -90,8 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     
                   },
                ),
-                // SizedBox(height: 10,),
-                // Alreadytext()
+                
               ],
             ),
           ),

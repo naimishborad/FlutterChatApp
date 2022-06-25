@@ -88,9 +88,23 @@ class _ConversationScreenState extends State<ConversationScreen> {
       ),
       body:  Stack(
             children: [
-            
-                  ChatMessageList(),
-
+            Container(
+              decoration: isWhite ?  BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors:  [Colors.white,themes.primaryColor] 
+                )
+              ) : 
+              BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors:  [Colors.black,themes.primaryColor] 
+                )
+              ) ,
+              ),
+            ChatMessageList(),
               Container(
                 alignment: Alignment.bottomCenter,
                 child: Container(

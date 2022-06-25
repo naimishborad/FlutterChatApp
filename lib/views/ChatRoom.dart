@@ -1,8 +1,12 @@
 
+import 'dart:async';
+
 import 'package:chat/Services/Constants.dart';
 import 'package:chat/Services/Database.dart';
 import 'package:chat/Themes/Themes.dart';
+import 'package:chat/Utils/shimmer.dart';
 import 'package:chat/main.dart';
+import 'package:chat/models/popupmenuchoice.dart';
 import 'package:chat/views/ContactUs.dart';
 import 'package:chat/views/Conversation_screen.dart';
 import 'package:chat/views/Help.dart';
@@ -14,9 +18,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../New/AuthProvider.dart';
-import '../New/widgets/popUpmenuchoice.dart';
 import '../Services/Auth.dart';
 import '../Services/helperFunctions.dart';
 
@@ -31,11 +32,20 @@ class ChatRoomSceen extends StatefulWidget {
 
 class _ChatRoomSceenState extends State<ChatRoomSceen> {
   Stream? ChatRoomStream;
-  
+  bool isLoading = true;
+
+  dataLoading()async{
+    Timer(Duration(seconds: 5),(){
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+ 
   @override
   void initState() {
     getuserInfo();
-   
+    dataLoading();
     super.initState();
   }
 
@@ -58,15 +68,14 @@ class _ChatRoomSceenState extends State<ChatRoomSceen> {
         if(snapshot.hasData){
           return ListView.builder(
             itemCount: snapshot.data.docs.length,
-            itemBuilder: (BuildContext context, int index) {
-              return ChatRoomTile(
+            itemBuilder: (BuildContext context, int index){
+              return isLoading ?  ShimmerList() :  ChatRoomTile(
                 userName: snapshot.data.docs[index]['chatroom']
                 .toString().replaceAll('_', '').replaceAll(Constants.myName, ''),
                 chatroomId: snapshot.data.docs[index]['chatroom'],
                 callback: (){
                   FirebaseFirestore.instance.collection('chat_room').doc(snapshot.data.docs[index]['chatroom']).delete();
                 },
-               
                 );
             },
           );
@@ -90,6 +99,7 @@ class _ChatRoomSceenState extends State<ChatRoomSceen> {
 
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
+   
    return Scaffold(
      drawer: Drawer(
        child: Center(child: Text(Constants.myName)),
@@ -105,6 +115,7 @@ class _ChatRoomSceenState extends State<ChatRoomSceen> {
             onChanged: (value){
               setState(() {
                 isWhite = !isWhite;
+               
                 print(isWhite);
               });
             },
@@ -117,7 +128,6 @@ class _ChatRoomSceenState extends State<ChatRoomSceen> {
         ),
         actions: [
            buildPopUpMenu(),
-         
         ],
       ),
   
@@ -134,10 +144,8 @@ class _ChatRoomSceenState extends State<ChatRoomSceen> {
   }
   void onItemmenupress(PopUpChoice choice){
     if(choice.title == 'Sign Out'){
-      AuthProvider authProvider = context.read<AuthProvider>();
-      authProvider.handleSignOut().then((value) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
-      });
+      Auth authProvider = context.read<Auth>();
+      authProvider.signOut().then((value) => Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(context)=>SignUpScreen())));
     }
     else if(choice.title == 'Help'){
        Navigator.push(context, MaterialPageRoute(builder: ((context) => Help())));
