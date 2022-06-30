@@ -73,9 +73,7 @@ class _userDetailsState extends State<userDetails> {
                            Map<String,String> users ={
                            'name':controller.text,
                            'email':user!.email.toString()
-                           };
-         
-                     
+                           };  
                         FirebaseFirestore.instance.collection('user').doc(controller.text).set(users).then((value) {
                            HelperFunctions.saveUserNameSharedPreference(controller.text);
                       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>ChatRoomSceen()));

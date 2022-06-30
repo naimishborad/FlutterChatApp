@@ -1,5 +1,6 @@
 
 import 'package:chat/Themes/Themes.dart';
+import 'package:chat/Themes/colors.dart';
 import 'package:chat/main.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,12 +25,12 @@ class _ContactUsState extends State<ContactUs> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: isWhite ?Colors.white :Colors.black,
-        foregroundColor: isWhite ?Colors.black :Colors.white,
+        backgroundColor: isWhite ? lightColorScheme.primary : darkColorScheme.primary,
+        foregroundColor: isWhite ? lightColorScheme.onPrimary : darkColorScheme.onPrimary,
         title: Text('Contact Us')
       ),
     body:  Container(
-        color: isWhite ?Colors.white :Colors.black,
+        color: isWhite ? lightColorScheme.background : darkColorScheme.background,
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -39,42 +40,42 @@ class _ContactUsState extends State<ContactUs> {
               children: [
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    primary: isWhite ? themes.primaryColor : Colors.purple[100],
+                    primary: isWhite ? lightColorScheme.primary : darkColorScheme.primary,
                     fixedSize: Size.fromWidth(MediaQuery.of(context).size.width),
                     elevation: 0
                   ),
                   onPressed: ()async{
-                  }, icon: Icon(Icons.email), label: Text('Email : naimishborad34@gmail.com')),
+                  }, icon: Icon(Icons.email,color: isWhite ? lightColorScheme.onPrimary : darkColorScheme.onPrimary), label: Text('Email : naimishborad34@gmail.com',style: TextStyle(color: isWhite ? lightColorScheme.onPrimary : darkColorScheme.onPrimary),)),
                   SizedBox(height: 20,),
                    ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    primary: isWhite ? themes.primaryColor : Colors.purple[100],
+                    primary: isWhite ? lightColorScheme.primary : darkColorScheme.primary,
                     fixedSize: Size.fromWidth(MediaQuery.of(context).size.width),
                     elevation: 0
                   ),
                   onPressed: (){
                     launch('https://twitter.com/naimishborad');
-                  }, icon: Icon(FontAwesomeIcons.twitter), label: Text('Twitter')),
+                  }, icon: Icon(FontAwesomeIcons.twitter,color: isWhite ? lightColorScheme.onPrimary : darkColorScheme.onPrimary), label: Text('Twitter',style: TextStyle(color: isWhite ? lightColorScheme.onPrimary : darkColorScheme.onPrimary))),
                    SizedBox(height: 20,),
                    ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    primary: isWhite ? themes.primaryColor : Colors.purple[100],
+                    primary: isWhite ? lightColorScheme.primary : darkColorScheme.primary,
                     fixedSize: Size.fromWidth(MediaQuery.of(context).size.width),
                     elevation: 0
                   ),
                   onPressed: (){
                     launch('https://github.com/naimishborad');
-                  }, icon: Icon(FontAwesomeIcons.github), label: Text('Github')),
+                  }, icon: Icon(FontAwesomeIcons.github,color: isWhite ? lightColorScheme.onPrimary : darkColorScheme.onPrimary,), label: Text('Github',style: TextStyle(color: isWhite ? lightColorScheme.onPrimary : darkColorScheme.onPrimary))),
                   SizedBox(height: 20,),
                    ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    primary: isWhite ? themes.primaryColor : Colors.purple[100],
+                    primary: isWhite ? lightColorScheme.primary : darkColorScheme.primary,
                     fixedSize: Size.fromWidth(MediaQuery.of(context).size.width),
                     elevation: 0
                   ),
                   onPressed: (){
                     launch('https://www.linkedin.com/in/naimish-borad-55b757220/');
-                  }, icon: Icon(FontAwesomeIcons.linkedin), label: Text('LinkedIn')),
+                  }, icon: Icon(FontAwesomeIcons.linkedin,color: isWhite ? lightColorScheme.onPrimary : darkColorScheme.onPrimary), label: Text('LinkedIn',style: TextStyle(color: isWhite ? lightColorScheme.onPrimary : darkColorScheme.onPrimary))),
                    SizedBox(height: 20,),
               ],
             ),

@@ -31,6 +31,10 @@ class database{
     });
   }
 
+  static updateChatRoomTime(String ChatroomId, dateTime){
+    FirebaseFirestore.instance.collection('chat_room').doc(ChatroomId).update(dateTime);
+  }
+
   static addConversationMessages(String chatroomId,messageMap){
     FirebaseFirestore.instance.collection('chat_room').
     doc(chatroomId).collection('Chats').add(messageMap);
@@ -42,9 +46,11 @@ class database{
   }
 
   static getChatRoom(String userName)async{
-    return await FirebaseFirestore.instance.collection('chat_room')
-    .where('users',arrayContains: userName).snapshots();
+    return FirebaseFirestore.instance.collection('chat_room').where('users',arrayContains: userName).orderBy('time',descending: true)
+    .snapshots();
   }
+
+  
 
   static getuser()async{
     return await FirebaseFirestore.instance.collection('user').snapshots();

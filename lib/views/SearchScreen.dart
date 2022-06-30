@@ -118,7 +118,6 @@ getChatRoomId(String a,String  b){
                 GestureDetector(
                   onTap: (){
                     initialSearch();
-                   
                   },
                   child: Container(
                     child: Icon(Icons.search,color: Colors.white,)),
@@ -163,7 +162,7 @@ getChatRoomId(String a,String  b){
            email: searchSnapshot!.docs[index]['email']
         );
       }
-    ) : userlist();
+    ) :Container();
   }
 
   

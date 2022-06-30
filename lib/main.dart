@@ -18,6 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 bool isWhite = true;
+bool theme = true;
 void main() async
 {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,9 +75,7 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.purple,
-          ),
+
           home: widget.showHome ?  SplashScreen() : Intro()
       ),
     );

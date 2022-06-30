@@ -1,3 +1,4 @@
+import 'package:chat/Themes/colors.dart';
 import 'package:chat/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,27 +17,49 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: isWhite ?Colors.white :Colors.black,
-        foregroundColor: isWhite ?Colors.black :Colors.white,
+        backgroundColor: isWhite ? lightColorScheme.primary : darkColorScheme.primary,
+        foregroundColor: isWhite ? lightColorScheme.onPrimary : darkColorScheme.onPrimary,
         title: Text('Profile'),
       ),
       body: Container(
-        color:  isWhite ?Colors.white :Colors.black,
+        color: isWhite ? lightColorScheme.background : darkColorScheme.background,
         child: Center(
           child: Column(
             children: [
               SizedBox(height: 30,),
-              CircleAvatar(
-                radius: 80,
-                backgroundImage: NetworkImage(user.photoURL.toString()),
+              Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                   CircleAvatar(
+                  radius: 80,
+                  backgroundImage: NetworkImage(user.photoURL.toString()),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: GestureDetector(
+                    onTap: (){
+                      
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: isWhite ? lightColorScheme.primary :darkColorScheme.primary
+                      ),
+                      child: Text('+',style: TextStyle(color: isWhite ? lightColorScheme.onSecondary: darkColorScheme.onSecondary,fontSize: 20),)),
+                  ),
+                )
+                ],
               ),
               SizedBox(height: 20,),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Name : ',style: TextStyle(color: isWhite?Colors.black :Colors.white,fontSize: 20,fontFamily: 'LemonMilkRegular')),
-                  Text(user.displayName.toString(),style: TextStyle(color: isWhite?Colors.black :Colors.white,fontSize: 20,fontFamily: 'LemonMilkRegular'),),
+                  Text('Name : ',style: TextStyle(color: isWhite ? lightColorScheme.onBackground : darkColorScheme.onBackground,fontSize: 20,fontFamily: 'LemonMilkRegular')),
+                  Text(user.displayName.toString(),style: TextStyle(color: isWhite ? lightColorScheme.onBackground : darkColorScheme.onBackground,fontSize: 20,fontFamily: 'LemonMilkRegular'),),
                   
                 ],
               ),
@@ -45,11 +68,11 @@ class _ProfileState extends State<Profile> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Email : ',style: TextStyle(color: isWhite?Colors.black :Colors.white,fontSize: 15,)),
-                  Text(user.email.toString(),style: TextStyle(color: isWhite?Colors.black :Colors.white,fontSize: 15),),
-                  
+                  Text('Email : ',style: TextStyle(color: isWhite ? lightColorScheme.onBackground : darkColorScheme.onBackground,fontSize: 15,)),
+                  Text(user.email.toString(),style: TextStyle(color: isWhite ? lightColorScheme.onBackground : darkColorScheme.onBackground,fontSize: 15),),
                 ],
-              )
+              ),
+              
             ],
           ),
         ),
